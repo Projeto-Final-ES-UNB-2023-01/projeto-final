@@ -1,0 +1,2 @@
+- Resolver a questão das mensagens flash
+- Criar pasta models

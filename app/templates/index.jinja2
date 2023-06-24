@@ -1,0 +1,10 @@
+{% extends "base.jinja2" %}
+
+{% block content %}
+<h1 class="title">
+  Test's application
+</h1>
+<h2 class="subtitle">
+   <a href ={{url_for('auth.login')}}> Login </a> or  <a href ={{url_for('auth.signup')}}>signup.
+</h2>
+{% endblock %}

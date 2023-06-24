@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Signup</title>
+  <link rel="stylesheet" type="text/css" href="../../static/style.css">
+</head>
+<body>
+  <div class="container">
+    <form method="POST" action = "/signup">
+      <h2>Signup</h2>
+      <div class="input-group">
+        <label for="username">Registration number:</label>
+        <input type="text" id="registration" name="registration" placeholder="Registration Number" required>
+      </div>
+      <div class="input-group">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" placeholder="Name" required>
+      </div>
+
+      <div class="input-group">
+        <label for="email">E-mail:</label>
+        <input type="email" id="email" name="email" placeholder="E-mail" required>
+      </div>
+      <div class="input-group">
+        <label for="password">Senha:</label>
+        <input type="password" id="password" name="password" placeholder="Password" required>
+      </div>
+      <div class="input-group">
+        <label for="role">Role:</label>
+        <select id="role" name="role" required>
+          <option value="">Select</option>
+          <option value="aluno">Student</option>
+          <option value="professor">Professor</option>
+        </select>
+      </div>
+      <div class="input-group">
+        <button type="submit">Signup</button>
+      </div>
+    </form>
+  </div>
+</body>
+</html>
