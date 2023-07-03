@@ -8,6 +8,14 @@ db = SQLAlchemy()
 login_manager = LoginManager()
 login_manager.login_view = 'auth.login'
 index = Blueprint('index','index')
+def seed_users():
+    from .seed import users
+    from .models.user import User
+    for user in users:
+        print(user)
+        db.session.add(User(**user))
+    db.session.commit()
+
 
 def create_app():
     app = Flask(__name__)
@@ -28,6 +36,12 @@ def create_app():
 
     app.register_blueprint(index,url_prefix = '/')
 
+    
     return app
 app = create_app()
+# seed_users()
+
+
+
+
     

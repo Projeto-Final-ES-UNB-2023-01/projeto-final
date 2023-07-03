@@ -1,5 +1,5 @@
 from ..webapp import login_manager
-from ..user import User
+from ..models.user import User
 
 @login_manager.user_loader
 def load_user(user_id):

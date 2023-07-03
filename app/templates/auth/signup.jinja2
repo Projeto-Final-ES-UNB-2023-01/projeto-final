@@ -1,17 +1,29 @@
 {% extends "base.jinja2" %}
 
 {% block content %}
+<script>
+    function validatePsw(){
+        var password = document.getElementsByName("password")[0].value;
+        var confirPassword = document.getElementsByName("confirm-password")[0].value;
+        if (password !== confirPassword){
+            alert("The passwords do not match.")
+            return false;
+        }
+        return true;
+
+    }
+</script>
 <div class="column is-4 is-offset-4">
     <h3 class="title">Signup</h3>
     <div class="box">
         {% with messages = get_flashed_messages() %}
             {% if messages %}
                 <div class = 'notification is-danger'>
-                    {{messages}}. Faça o Login <a href="{{url_for('auth.login')}}">Login Page </a>
+                    {{messages[0]}}. Faça o Login <a href="{{url_for('auth.login')}}">Login Page </a>
                 </div>
                 {% endif%}
                 {% endwith %}
-                <form method="POST" action="/signup">
+                <form method="POST" action="/signup" onsubmit= "return validatePsw()">
             <div class="field">
                 <div class="control">
                     E-mail
@@ -38,7 +50,17 @@
                     <input class="input is-large" type="password" name="password" placeholder="Password">
                 </div>
             </div>
-            <div class="input-group">
+            <div class="field">
+                <div class="control">
+                    Confirm your password
+                    <input class="input is-large" type="password" name="confirm-password" placeholder="Confirm your password">
+                </div>
+            </div>
+
+
+
+
+        
         <label for="role">Role:</label>
         <select id="role" name="role" required>
           <option value="">Select</option>

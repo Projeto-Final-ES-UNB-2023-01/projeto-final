@@ -13,7 +13,7 @@
 
 `from app.webapp import app,db`
 
-`from app.user import User`
+`from app.models import User,Models`
 
 `app.app_context().push()`
 
