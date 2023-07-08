@@ -34,8 +34,8 @@
 
                             {% if  current_user.is_authenticated %}
                             {% if current_user.role == 'professor'%}
-                                <a href="{{ url_for('question.new') }}" class="navbar-item">
-                                New Question
+                                <a href="{{ url_for('question.show_questions') }}" class="navbar-item">
+                                Questions
                             </a>
                             {% endif %}
                             <a href="{{ url_for('auth.logout') }}" class="navbar-item">

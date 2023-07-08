@@ -1,0 +1,60 @@
+{% extends "base.jinja2" %}
+
+{% block content %}
+<html>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #acabab;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+<body>
+
+  <h1 class = 'title'> Questões cadastradas </h1>
+
+
+    <a href="{{ url_for('question.new') }}" class="btn btn-success"> <button class="button is-primary ">Add New</button></a>
+    <div class = 'box'>
+     <b>Questões Cadastradas</b> 
+     
+    <table class = 'table is-striped' >
+        <tr>
+            <th>Description</th>
+            <th>Type</th>
+            <th>Value</th>
+            <th>Actions</th>
+        </tr>
+        {% for question in questions %}
+            <tr>
+                <td>{{ question.description }}</td>
+                <td>{{ question.type }}</td>
+                <td>{{ question.value }}</td>
+                <td>
+                     <form action = "{{url_for('question.destroy',id = question.id)}}" method = 'GET'>
+                      <button type = 'submit'> Excluir</button>
+
+                    </form>
+                  </td>
+            </tr>
+        {% endfor %}
+    </table>
+  </div>
+</body>
+</html>
+
+
+
+{% endblock %}

@@ -61,3 +61,18 @@ def new_type(id):
 
         return redirect(url_for('main.profile'))
 
+@question.route('/',methods = ['GET'])
+@login_required
+def show_questions():
+    prof_questions = Question.query.filter_by(prof_id = current_user.id).all()
+    print(prof_questions)
+    return render_template('questions/show.jinja2',questions = prof_questions)
+
+
+@question.route('/<id>/delete',methods = ['GET'])
+@login_required
+def destroy(id):
+    question = db.get_or_404(Question,id)
+    db.session.delete(question)
+    db.session.commit()
+    return redirect(url_for('question.show_questions'))
