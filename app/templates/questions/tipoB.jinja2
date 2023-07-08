@@ -1,0 +1,36 @@
+{% extends "base.jinja2" %}
+
+{% block content %}
+
+
+    <h3 class="title">Add True/False question</h3>
+    <div class="box">
+                <form method="POST" action="">
+            <div class="field">
+                <div class="control">
+                    Command
+                    <textarea class="textarea is-medium " name = "command" placeholder="command" autofocus=""></textarea>
+                </div>
+            </div>
+        
+            
+             <div class = 'field'>
+            <div class = 'control' > Answer
+            <input class="input is-small" type="float" name="answer" placeholder="Answer" >
+            </div>
+        </div>
+             <br>
+
+
+        
+        <div class = 'field'>
+            <div class = 'control' > Value
+            <input class="input is-small" type="float" name="value" placeholder="Value" >
+            </div>
+        </div>
+    <br>
+            <button class="button is-block is-info is-medium is-responsive">Add</button>
+        </form>
+    </div>
+
+{% endblock %}
