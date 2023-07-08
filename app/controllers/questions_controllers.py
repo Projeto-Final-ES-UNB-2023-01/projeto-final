@@ -44,7 +44,15 @@ def new_type(id):
         question.command = command
         question.answer = answer
         question.value = value
+        if question.type =='C':
+            options = {}
+            opts = ['optA','optB','optC','optD','optE']
+            for opt in opts:
+                option = request.form.get(opt)
+                options[opt] = option
         
+            print(options)
+        question.options = options
         
         
         db.session.add(question)
