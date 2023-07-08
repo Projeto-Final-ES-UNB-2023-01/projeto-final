@@ -13,7 +13,7 @@
 
 `from app.webapp import app,db`
 
-`from app.models import User,Models`
+`from app.models import User,Question`
 
 `app.app_context().push()`
 
