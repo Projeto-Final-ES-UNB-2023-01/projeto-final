@@ -20,3 +20,4 @@ class Question(db.Model):
 
     professor: Mapped["User"] = relationship(back_populates='questions')
     exam: Mapped["Exam"] = relationship(back_populates='questions')
+    answers: Mapped[list["Answer"]] = relationship(back_populates='question')
