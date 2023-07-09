@@ -26,32 +26,35 @@
     <h1 class='title'> Questões cadastradas </h1>
 
 
-
     <div class='box'>
         <b>Questões Cadastradas</b>
 
-        <table class='table is-striped'>
-            <tr>
-                <th>Add</th>
-                <th>Id</th>
-                <th>Description</th>
-                <th>Type</th>
-                <th>Value</th>
-            </tr>
-
-            {% for question in questions %}
+        <form method="post">
+            <table class='table is-striped'>
                 <tr>
-                <td>
-                        <input type="checkbox",value = '{{question.id}}', name = 'mycheckbox'>
-                    </td>
-                    <td>{{question.id}}</td>
-                    <td>{{ question.description }}</td>
-                    <td>{{ question.type }}</td>
-                    <td>{{ question.value }}</td>
-                    
+                    <th>Add</th>
+                    <th>Id</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Value</th>
                 </tr>
-            {% endfor %}
-        </table>
+
+                {% for question in questions %}
+                    <tr>
+                        <td>
+                            <label for="check"></label>
+                            <input type="checkbox" id="check" value="{{ question.id }}" name="checkbox">
+                        </td>
+                        <td>{{ question.id }}</td>
+                        <td>{{ question.description }}</td>
+                        <td>{{ question.type }}</td>
+                        <td>{{ question.value }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+
+            <button class="button is-info is-medium is-responsive">Add</button>
+        </form>
     </div>
     </body>
     </html>

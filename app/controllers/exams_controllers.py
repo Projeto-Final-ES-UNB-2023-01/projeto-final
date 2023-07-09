@@ -10,8 +10,6 @@ exam = Blueprint('exam', __name__)
 @login_required
 def show():
     exams = Exam.query.filter_by(prof_id=current_user.id).all()
-    print(exams)
-
     return render_template('exams/show.jinja2', exams=exams)
 
 
@@ -25,7 +23,7 @@ def new():
         db.session.add(new_exam)
         db.session.commit()
 
-        return redirect(url_for('exam.show'))
+        return redirect(url_for('exam.add_questions', id=new_exam.id))
 
     return render_template('exams/new.jinja2')
 
@@ -39,11 +37,21 @@ def delete(id):
 
     return redirect(url_for('exam.show'))
 
-@exam.route('/<id>/add_questions',methods = ['POST','GET'])
+
+@exam.route('/<id>/add_questions', methods=['POST', 'GET'])
 @login_required
 def add_questions(id):
-    if request.method == 'GET':
-        return render_template('exams/add_questions.jinja2', questions = Question.query.filter_by(prof_id = current_user.id).all())
-    """
-    Funçao pra pegar as checkbox selecionadas : request.form.getlist('mycheckbox')
-    """
+    if request.method == 'POST':
+        selected = request.form.getlist('checkbox')
+        exam = Exam.query.filter_by(id=id).first()
+
+        for question_id in selected:
+            question = Question.query.filter_by(id=int(question_id)).first()
+            question.exam = exam
+
+            db.session.commit()
+
+        return redirect(url_for('exam.show'))
+
+    questions = Question.query.filter_by(prof_id=current_user.id).all()
+    return render_template('exams/add_questions.jinja2', questions=questions)
