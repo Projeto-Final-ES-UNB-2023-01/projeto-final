@@ -1,11 +1,18 @@
 from ..webapp import db
 from flask_login import UserMixin
+from sqlalchemy import String
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+
+
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
-    id = db.Column(db.Integer, primary_key = True)
-    name = db.Column(db.Integer, nullable = False)
-    email = db.Column(db.String(200),nullable = False)
-    registration = db.Column(db.String,unique = True, nullable = False)
-    password = db.Column(db.String(200))
-    role = db.Column(db.String)
-    questions = db.relationship('Question', backref = 'user')
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    name: Mapped[int] = mapped_column()
+    email: Mapped[String] = mapped_column(String(200))
+    registration: Mapped[String] = mapped_column(String, unique=True, nullable=False)
+    password: Mapped[String] = mapped_column(String(200))
+    role: Mapped[String] = mapped_column(String)
+
+    questions: Mapped[list["Question"]] = relationship(back_populates='professor')
+    exams: Mapped[list["Exam"]] = relationship(back_populates='professor')

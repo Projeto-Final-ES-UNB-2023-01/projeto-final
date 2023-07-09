@@ -1,75 +1,73 @@
 {% extends "base.jinja2" %}
 
 {% block content %}
-<script>
-    function validatePsw(){
-        var password = document.getElementsByName("password")[0].value;
-        var confirPassword = document.getElementsByName("confirm-password")[0].value;
-        if (password !== confirPassword){
-            alert("The passwords do not match.")
-            return false;
+    <script>
+        function validatePsw() {
+            let password = document.getElementsByName("password")[0].value;
+            let confirPassword = document.getElementsByName("confirm-password")[0].value;
+
+            if (password !== confirPassword) {
+                alert("The passwords do not match.")
+                return false;
+            }
+            return true;
         }
-        return true;
+    </script>
+    <div class="column is-4 is-offset-4">
+        <h3 class="title">Signup</h3>
+        <div class="box">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div class='notification is-danger'>
+                        {{ messages[0] }}. Faça o Login <a href="{{ url_for('auth.login') }}">Login Page </a>
+                    </div>
+                {% endif %}
+            {% endwith %}
 
-    }
-</script>
-<div class="column is-4 is-offset-4">
-    <h3 class="title">Signup</h3>
-    <div class="box">
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                <div class = 'notification is-danger'>
-                    {{messages[0]}}. Faça o Login <a href="{{url_for('auth.login')}}">Login Page </a>
+            <form method="POST" action="/signup" onsubmit="return validatePsw()">
+                <div class="field">
+                    <div class="control"> E-mail
+                        <label for="email"></label>
+                        <input class="input is-large" type="email" id="email" name="email" placeholder="E-mail"
+                               autofocus="">
+                    </div>
                 </div>
-                {% endif%}
-                {% endwith %}
-                <form method="POST" action="/signup" onsubmit= "return validatePsw()">
-            <div class="field">
-                <div class="control">
-                    E-mail
-                    <input class="input is-large" type="email" name="email" placeholder="E-mail" autofocus="">
+                <div class="field">
+                    <div class="control"> Registration Number
+                        <label for="reg"></label>
+                        <input class="input is-large" type="text" id="reg" name="registration-number"
+                               placeholder="Registration"
+                               maxlength="9">
+                    </div>
                 </div>
-            </div>
-            <div class="field">
-                <div class="control">
-                    Registration Number
-                    <input class="input is-large" type="text" name="registration-number" placeholder="Registration" maxlength="9">
+                <div class="field">
+                    <div class="control"> Name
+                        <label for="name"></label>
+                        <input class="input is-large" type="text" id="name" name="name" placeholder="Name" autofocus="">
+                    </div>
                 </div>
-            </div>
-
-            <div class="field">
-                <div class="control">
-                    Name
-                    <input class="input is-large" type="text" name="name" placeholder="Name" autofocus="">
+                <div class="field">
+                    <div class="control"> Password
+                        <label for="pass"></label>
+                        <input class="input is-large" type="password" id="pass" name="password" placeholder="Password">
+                    </div>
                 </div>
-            </div>
-
-            <div class="field">
-                <div class="control">
-                    Password
-                    <input class="input is-large" type="password" name="password" placeholder="Password">
+                <div class="field">
+                    <div class="control"> Confirm your password
+                        <label for="conf"></label>
+                        <input class="input is-large" type="password" id="conf" name="confirm-password"
+                               placeholder="Confirm your password">
+                    </div>
                 </div>
-            </div>
-            <div class="field">
-                <div class="control">
-                    Confirm your password
-                    <input class="input is-large" type="password" name="confirm-password" placeholder="Confirm your password">
-                </div>
-            </div>
-
-
-
-
-        
-        <label for="role">Role:</label>
-        <select id="role" name="role" required>
-          <option value="">Select</option>
-          <option value="aluno">Student</option>
-          <option value="professor">Professor</option>
-        </select>
-    <br>
-            <button class="button is-block is-info is-large is-fullwidth">Registrar</button>
-        </form>
+                <label for="role">Role:</label>
+                <select id="role" name="role" required>
+                    <option value="">Select</option>
+                    <option value="aluno">Student</option>
+                    <option value="professor">Professor</option>
+                </select>
+                <br>
+                <button class="button is-block is-info is-large is-fullwidth">Registrar</button>
+            </form>
+        </div>
     </div>
-</div>
 {% endblock %}

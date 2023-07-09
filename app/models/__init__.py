@@ -1,3 +1,5 @@
-from .question import Question
 from .user import User
-__all__ = [Question,User]
+from .exam import Exam
+from .question import Question
+
+__all__ = [Question, User, Exam]

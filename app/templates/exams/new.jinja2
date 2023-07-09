@@ -1,0 +1,18 @@
+{% extends 'base.jinja2' %}
+
+{% block content %}
+    <h3 class="title">Create new exam</h3>
+
+    <div class="box">
+        <form method="post">
+            <div class="field">
+                <div class="control">
+                    Description
+                    <label for="descr"></label>
+                    <input class="input" type="text" id="descr" name="description" placeholder="description" autofocus="" required>
+                </div>
+            </div>
+            <button class="button is-info is-medium is-responsive">Add</button>
+        </form>
+    </div>
+{% endblock %}

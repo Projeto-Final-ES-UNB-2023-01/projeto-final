@@ -1,14 +1,21 @@
 from ..webapp import db
+from . import User, Exam
+from sqlalchemy import String, Float, ForeignKey
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy_json import MutableJson
+
+
 class Question(db.Model):
     __tablename__ = 'questions'
-    id = db.Column(db.Integer, primary_key = True)
-    description = db.Column(db.String)
-    type = db.Column(db.String(1))
-    command = db.Column(db.String)
-    options = db.Column(MutableJson)
-    answer = db.Column(db.String)
-    value = db.Column(db.Float)
-    prof_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
+    id: Mapped[int] = mapped_column(primary_key=True)
+    description: Mapped[String] = mapped_column(String)
+    type: Mapped[String] = mapped_column(String(1))
+    command: Mapped[String] = mapped_column(String, nullable=True)
+    answer: Mapped[String] = mapped_column(String, nullable=True)
+    value: Mapped[Float] = mapped_column(Float, nullable=True)
+    prof_id: Mapped[int] = mapped_column(ForeignKey('users.id'))
+    exam_id: Mapped[int] = mapped_column(ForeignKey('exams.id'), nullable=True)
 
+    professor: Mapped["User"] = relationship(back_populates='questions')
+    exam: Mapped["Exam"] = relationship(back_populates='questions')

@@ -1,4 +1,5 @@
-import os 
+import os
+
 basedir = os.path.abspath(os.path.dirname(__file__))
 from flask import Flask, redirect, url_for, Blueprint
 from flask_sqlalchemy import SQLAlchemy
@@ -7,7 +8,9 @@ from flask_login import LoginManager
 db = SQLAlchemy()
 login_manager = LoginManager()
 login_manager.login_view = 'auth.login'
-index = Blueprint('index','index')
+index = Blueprint('index', 'index')
+
+
 def seed_users():
     from .seed import users
     from .models.user import User
@@ -30,18 +33,14 @@ def create_app():
 
     from .controllers import blueprints
     for bp in blueprints():
-        app.register_blueprint(bp,url_prefix = f"/{bp.name}")
+        app.register_blueprint(bp, url_prefix=f"/{bp.name}")
 
     from .auth.loaders import load_user
 
-    app.register_blueprint(index,url_prefix = '/')
+    app.register_blueprint(index, url_prefix='/')
 
-    
     return app
+
+
 app = create_app()
 # seed_users()
-
-
-
-
-    

@@ -23,32 +23,27 @@
     </style>
     <body>
 
-    <h1 class='title'> Questões cadastradas </h1>
+    <h1 class='title'> Exames cadastrados </h1>
 
 
-    <a href="{{ url_for('question.new') }}" class="btn btn-success">
+    <a href="{{ url_for('exam.new') }}" class="btn btn-success">
         <button class="button is-primary ">Add New</button>
     </a>
     <div class='box'>
-        <b>Questões Cadastradas</b>
+        <b>Exames cadastrados</b>
 
         <table class='table is-striped'>
             <tr>
                 <th>Description</th>
-                <th>Type</th>
-                <th>Value</th>
+                {#                <th>Questions</th>#}
                 <th>Actions</th>
             </tr>
-
-            {% for question in questions %}
+            {% for exam in exams %}
                 <tr>
-                    <td>{{ question.description }}</td>
-                    <td>{{ question.type }}</td>
-                    <td>{{ question.value }}</td>
+                    <td>{{ exam.description }}</td>
                     <td>
-                        <form action="{{ url_for('question.destroy',id = question.id) }}" method='GET'>
-                            <button type='submit'> Excluir</button>
-
+                        <form action="{{ url_for('exam.delete',id = exam.id) }}">
+                            <button type='submit'>Excluir</button>
                         </form>
                     </td>
                 </tr>

@@ -1,37 +1,31 @@
 {% extends "base.jinja2" %}
 
 {% block content %}
-
     <h3 class="title">Add question description and type </h3>
     <div class="box">
-                <form method="POST" action="">
+        <form method="POST" action="">
             <div class="field">
                 <div class="control">
                     Description
-                    <input class="input" name = "description" placeholder="description" autofocus="" required></textarea>
+                    <label for="descr"></label>
+                    <input class="input" id="descr" name="description" placeholder="description" autofocus="" required></textarea>
                 </div>
             </div>
             <br>
             <label for="type">Question type:</label> <br>
-        <label class="radio">
-                    <input type="radio" name="type" value = 'A' checked>
-                        Tipo A
-                </label>
-                <label class="radio">
-                    <input type="radio" name="type" value = 'B'>
-                            Tipo B
-                </label>
-                <label class="radio">
-                    <input type="radio" name="type" value = 'C'>
-                            Tipo C
-                </label>
-                
-
-
-
-
-
-             <br>
+            <label class="radio">
+                <input type="radio" name="type" value='A' checked>
+                Tipo A
+            </label>
+            <label class="radio">
+                <input type="radio" name="type" value='B'>
+                Tipo B
+            </label>
+            <label class="radio">
+                <input type="radio" name="type" value='C'>
+                Tipo C
+            </label>
+            <br>
             <br>
             <button class="button  is-info is-medium is-responsive">Add</button>
         </form>
