@@ -61,6 +61,7 @@ def new_type(id):
 
             print(options)
             question.options = options
+            print(question.options)
 
         db.session.add(question)
         db.session.commit()

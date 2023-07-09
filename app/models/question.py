@@ -12,6 +12,7 @@ class Question(db.Model):
     description: Mapped[String] = mapped_column(String)
     type: Mapped[String] = mapped_column(String(1))
     command: Mapped[String] = mapped_column(String, nullable=True)
+    options: Mapped[MutableJson] = mapped_column(MutableJson, nullable=True)
     answer: Mapped[String] = mapped_column(String, nullable=True)
     value: Mapped[Float] = mapped_column(Float, nullable=True)
     prof_id: Mapped[int] = mapped_column(ForeignKey('users.id'))

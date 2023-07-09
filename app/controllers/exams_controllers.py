@@ -31,9 +31,19 @@ def new():
 
 
 @exam.route('/<id>/delete')
+@login_required
 def delete(id):
     exam = db.get_or_404(Exam, id)
     db.session.delete(exam)
     db.session.commit()
 
     return redirect(url_for('exam.show'))
+
+@exam.route('/<id>/add_questions',methods = ['POST','GET'])
+@login_required
+def add_questions(id):
+    if request.method == 'GET':
+        return render_template('exams/add_questions.jinja2', questions = Question.query.filter_by(prof_id = current_user.id).all())
+    """
+    Funçao pra pegar as checkbox selecionadas : request.form.getlist('mycheckbox')
+    """

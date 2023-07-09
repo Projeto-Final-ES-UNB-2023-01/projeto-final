@@ -1,0 +1,58 @@
+{% extends "base.jinja2" %}
+
+{% block content %}
+    <html lang="pt-br">
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #acabab;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+    <body>
+
+    <h1 class='title'> Questões cadastradas </h1>
+
+
+
+    <div class='box'>
+        <b>Questões Cadastradas</b>
+
+        <table class='table is-striped'>
+            <tr>
+                <th>Add</th>
+                <th>Id</th>
+                <th>Description</th>
+                <th>Type</th>
+                <th>Value</th>
+            </tr>
+
+            {% for question in questions %}
+                <tr>
+                <td>
+                        <input type="checkbox",value = '{{question.id}}', name = 'mycheckbox'>
+                    </td>
+                    <td>{{question.id}}</td>
+                    <td>{{ question.description }}</td>
+                    <td>{{ question.type }}</td>
+                    <td>{{ question.value }}</td>
+                    
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+    </body>
+    </html>
+{% endblock %}
