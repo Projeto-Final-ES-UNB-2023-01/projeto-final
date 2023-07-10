@@ -9,8 +9,12 @@ exam = Blueprint('exam', __name__)
 @exam.route('/')
 @login_required
 def show():
-    exams = Exam.query.filter_by(prof_id=current_user.id).all()
-    return render_template('exams/show.jinja2', exams=exams)
+    if current_user.role == 'professor':
+        exams = Exam.query.filter_by(prof_id=current_user.id).all()
+        return render_template('exams/show.jinja2', exams=exams,current_user = current_user)
+    exams = Exam.query.all()
+    return render_template('exams/show.jinja2', exams=exams,current_user = current_user)
+    
 
 
 @exam.route('/new', methods=['GET', 'POST'])
@@ -62,24 +66,41 @@ def add_questions(id):
     questions = Question.query.filter_by(prof_id=current_user.id).all()
     return render_template('exams/add_questions.jinja2', questions=questions)
 
-@exam.route('/<exam_id>/<question>',methods = ['POST','GET'])
-@login_required
-def apply_exam(exam_id,question):
-    exam = Exam.query.filter_by(id = exam_id).first()
-    questions = list(exam.questions.keys())
-    print(questions)
-    if request.method == 'GET':
-        return render_template('exams/apply.jinja2',id = exam.id,question = exam.questions[question])
-    answer = request.form.get('answer')
+# @exam.route('apply/<exam_id>', defaults = {'question':None})
+# @exam.route('apply/<exam_id>/<question>',methods = ['POST','GET'])
+
+# @login_required
+# def apply_exam(exam_id, question = None):
+#     exam = Exam.query.filter_by(id = exam_id).first()
+#     questions = list(exam.questions.keys())
+#     if not question:
+#         new_attempt = Attempt(student_id = current_user.id,
+#                               exam_id = exam_id,
+#                               )
+#         db.session.add(new_attempt),
+#         db.session.commit()
+#         return redirect(url_for('exam.apply_exam',id = exam_id, question = questions[0]))
+#     if request.method == 'GET':
+#         print(exam.id,exam.questions[questions[0]] )
+#         print(exam.questions)
+#         return render_template('exams/apply.jinja2',id = exam.id,question = exam.questions[questions[0]])
+#     answer = request.form.get('answer')
+#     current_attempt = Attempt.query.filter_by(exam_id = exam_id).first()
+#     current_attempt.answers[question] = answer
+
+#     db.session.commit()
+#     index = questions.index(question)
+#     if index+1 > len(questions)-1:
+
+#         return redirect(url_for('exam.grade'))
+
+
     
-    db.session.commit()
-    index = questions.index(question)
-    if index+1 > len(questions)-1:
 
-        return redirect(url_for('exam.grade'))
+#     return redirect(url_for(f'exam.apply_exam',exam_id = exam.id, question = questions[index+1] ))
 
-
+@exam.route('apply/<exam_id>',methods = ['GET','POST'])
+def apply(exam_id):
+    exam_questions = Exam.query.filter_by(id = exam_id).first().questions
+    return exam_questions
     
-
-    return redirect(url_for(f'exam.apply_exam',exam_id = exam.id, question = questions[index+1] ))
-
