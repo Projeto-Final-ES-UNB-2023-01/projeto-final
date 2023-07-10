@@ -5,6 +5,8 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy_json import MutableJson
 
 
+
+
 class Question(db.Model):
     __tablename__ = 'questions'
 
@@ -19,5 +21,14 @@ class Question(db.Model):
     exam_id: Mapped[int] = mapped_column(ForeignKey('exams.id'), nullable=True)
 
     professor: Mapped["User"] = relationship(back_populates='questions')
-    exam: Mapped["Exam"] = relationship(back_populates='questions')
-    answers: Mapped[list["Answer"]] = relationship(back_populates='question')
+
+    def toJson(self):
+        return {"id":self.id,
+                "description":self.description,
+                "type":self.type,
+                "command":self.command,
+                "options":self.options,
+                "answer":self.answer,
+                "value":self.value
+                }
+

@@ -1,0 +1,103 @@
+{% extends 'base.jinja2' %}
+
+{% block content %}
+    {% if question.type == 'A' %}
+    <h1 class="title">Questão tipo {{question.type}}</h1>
+    <div class="box">
+    Julgue como verdadeiro ou falso a seguinte afirmativa: (Valor: {{question.value}})
+    <h2>{{question.command}} </h2>
+    <br>
+    <form method="POST" , action="">
+        <label for="type">Answer:</label> <br>
+            <label class="radio">
+                <input type="radio" name="answer" value='True' required >
+                True
+            </label>
+            <label class="radio">
+                <input type="radio" name="answer" value='False'>
+                False
+            </label>
+            <br>
+            <br>
+            <button class="button is-info is-small is-responsive">Submit</button>
+    </form>
+            
+        
+    </div>
+    {% endif %}
+    {% if question.type == 'B' %}
+    <h1 class="title">Questão tipo {{question.type}}</h1>
+    <div class="box">
+    Leia o comando com atenção e insira a resposta encontrada: (Valor: {{question.value}})
+    <h2>{{question.command}} </h2>
+    <br>
+    Answer <br>
+    <form method="POST" , action="">
+    <div class="field">
+                <div class="control">
+                    <label for="answer"></label>
+                    <input class="input" type="float"  name="answer" placeholder="Answer"
+                           autofocus="" required>
+                </div>
+            </div>
+            <button class="button is-info is-small is-responsive">Submit</button>
+            
+            </form>
+    </div>
+
+    {%endif%}
+    {% if question.type == 'C' %}
+    <h1 class="title">Questão tipo {{question.type}}</h1>
+    <div class="box">
+    Leia o comando com atenção e assinale a resposta correta: (Valor: {{question.value}})
+    <h2>{{question.command}} </h2>
+    <br>
+
+    {% for opt in question.options %}
+    {{opt[3:]}} - {{question.options[opt]}}
+
+
+
+
+    <br>
+            
+        
+    
+    {% endfor %}
+    <form method="POST" , action="">
+    <label for="type">Answer:</label> <br>
+            <label class="radio">
+                <input type="radio" name="answer" value='A' required >
+                A
+            </label>
+
+            <label class="radio">
+                <input type="radio" name="answer" value='B'>
+                B
+            </label>
+
+            <label class="radio">
+                <input type="radio" name="answer" value='C'>
+                C
+            </label>
+
+            <label class="radio">
+                <input type="radio" name="answer" value='D'>
+                D
+            </label>
+
+            <label class="radio">
+                <input type="radio" name="answer" value='E'>
+                E
+            </label>
+<br>
+            <button class="button is-info is-small is-responsive">Submit</button>
+
+            </form>
+    </div>
+
+
+
+    {%endif%}
+
+{% endblock %}
