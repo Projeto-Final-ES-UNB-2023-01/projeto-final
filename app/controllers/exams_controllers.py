@@ -99,8 +99,32 @@ def add_questions(id):
 
 #     return redirect(url_for(f'exam.apply_exam',exam_id = exam.id, question = questions[index+1] ))
 
-@exam.route('apply/<exam_id>',methods = ['GET','POST'])
+@exam.route('apply/<exam_id>',methods = ['GET'])
+@login_required
 def apply(exam_id):
     exam_questions = Exam.query.filter_by(id = exam_id).first().questions
-    return exam_questions
+    return render_template('exams/apply.jinja2',questions = exam_questions)
+
+@exam.route('apply/<exam_id>',methods = ['POST'])
+@login_required
+def get_answers(exam_id):
+    answers = {}
+    grade = 0
+    exam_questions = Exam.query.filter_by(id = exam_id).first().questions
+    for question in exam_questions:
+        answer = request.form.get(question)
+        if answer == exam_questions[question]['answer']:
+            grade+= exam_questions[question]['value']
+
+        answers[question] = answer
+
+    new_attempt = Attempt(student_id = current_user.id,
+                          answers = answers,
+                          exam_id = exam_id,
+                          grade = grade
+    )
+    db.session.add(new_attempt)
+    db.session.commit()
+    return redirect(url_for('main.profile'))
+
     

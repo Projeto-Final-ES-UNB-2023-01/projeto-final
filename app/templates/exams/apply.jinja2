@@ -1,60 +1,62 @@
 {% extends 'base.jinja2' %}
 
 {% block content %}
-    {% if question.type == 'A' %}
-    <h1 class="title">Questão tipo {{question.type}}</h1>
+<form method="POST" , action=""> 
+
+{% for question in questions %}
+{{questions.id}}
+    {% if questions[question]['type'] == 'A' %}
+    <h1 class="title">Questão tipo {{questions[question]['type']}}</h1>
     <div class="box">
-    Julgue como verdadeiro ou falso a seguinte afirmativa: (Valor: {{question.value}})
-    <h2>{{question.command}} </h2>
+    Julgue como verdadeiro ou falso a seguinte afirmativa: (Valor: {{questions[question]['value']}})
+    <h2>{{questions[question]['command']}} </h2>
     <br>
-    <form method="POST" , action="">
         <label for="type">Answer:</label> <br>
             <label class="radio">
-                <input type="radio" name="answer" value='True' required >
+            
+                <input type="radio"  name="{{question}}" value='True' required >
                 True
             </label>
             <label class="radio">
-                <input type="radio" name="answer" value='False'>
+                <input type="radio" name="{{question}}" value='False'>
                 False
             </label>
             <br>
             <br>
-            <button class="button is-info is-small is-responsive">Submit</button>
-    </form>
+            
             
         
     </div>
     {% endif %}
-    {% if question.type == 'B' %}
-    <h1 class="title">Questão tipo {{question.type}}</h1>
+    {% if questions[question]['type'] == 'B' %}
+    <h1 class="title">Questão tipo {{questions[question]['type']}}</h1>
     <div class="box">
-    Leia o comando com atenção e insira a resposta encontrada: (Valor: {{question.value}})
-    <h2>{{question.command}} </h2>
+    Leia o comando com atenção e insira a resposta encontrada: (Valor: {{questions[question]['value']}})
+    <h2>{{questions[question]['command']}} </h2>
     <br>
     Answer <br>
-    <form method="POST" , action="">
+    
     <div class="field">
                 <div class="control">
                     <label for="answer"></label>
-                    <input class="input" type="float"  name="answer" placeholder="Answer"
+                    <input class="input" type="float"  name="{{question}}" placeholder="Answer"
                            autofocus="" required>
                 </div>
             </div>
-            <button class="button is-info is-small is-responsive">Submit</button>
             
-            </form>
     </div>
 
     {%endif%}
-    {% if question.type == 'C' %}
-    <h1 class="title">Questão tipo {{question.type}}</h1>
+    {% if questions[question]['type'] == 'C' %}
+    <h1 class="title">Questão tipo {{questions[question]['type']}}</h1>
     <div class="box">
-    Leia o comando com atenção e assinale a resposta correta: (Valor: {{question.value}})
-    <h2>{{question.command}} </h2>
+    Leia o comando com atenção e assinale a resposta correta: (Valor: {{questions[question]['value']}})
+    <h2>{{questions[question]['command']}} </h2>
     <br>
 
-    {% for opt in question.options %}
-    {{opt[3:]}} - {{question.options[opt]}}
+     {% for opt in questions[question]['options'] %}
+    
+    {{opt[3:]}} - {{questions[question]['options'][opt]}}
 
 
 
@@ -63,41 +65,45 @@
             
         
     
-    {% endfor %}
-    <form method="POST" , action="">
+    {% endfor %} 
+   
     <label for="type">Answer:</label> <br>
             <label class="radio">
-                <input type="radio" name="answer" value='A' required >
+                <input type="radio" name="{{question}}" value='A' required >
                 A
             </label>
 
             <label class="radio">
-                <input type="radio" name="answer" value='B'>
+                <input type="radio" name="{{question}}" value='B'>
                 B
             </label>
 
             <label class="radio">
-                <input type="radio" name="answer" value='C'>
+                <input type="radio" name="{{question}}" value='C'>
                 C
             </label>
 
             <label class="radio">
-                <input type="radio" name="answer" value='D'>
+                <input type="radio" name="{{question}}" value='D'>
                 D
             </label>
 
             <label class="radio">
-                <input type="radio" name="answer" value='E'>
+                <input type="radio" name="{{question}}" value='E'>
                 E
             </label>
 <br>
-            <button class="button is-info is-small is-responsive">Submit</button>
-
-            </form>
+            
     </div>
 
 
 
     {%endif%}
+    {% endfor %}
+
+    
+    <br>
+    <button class="button is-info is-medium is-responsive">Submit</button>
+    </form>
 
 {% endblock %}
