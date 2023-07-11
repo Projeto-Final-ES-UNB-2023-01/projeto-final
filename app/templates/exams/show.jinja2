@@ -1,72 +1,50 @@
 {% extends "base.jinja2" %}
 
-
 {% block content %}
-    <html lang="pt-br">
-    <style>
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
-
-        th, td {
-            text-align: left;
-            padding: 8px;
-        }
-
-        th {
-            background-color: #acabab;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-    </style>
-    <body>
-
     <h1 class='title'> Exames cadastrados </h1>
+
     {% if current_user.role == 'professor' %}
-    
-
-
-
         <a href="{{ url_for('exam.new') }}" class="btn btn-success">
             <button class="button is-primary ">Add New</button>
         </a>
     {% endif %}
+
     <div class='box'>
         <b>Exames cadastrados</b>
-
         <table class='table is-striped'>
             <tr>
                 <th>Description</th>
+
                 {% if current_user.role == 'aluno' %}
                     <th>Professor</th>
                 {% endif %}
+
                 <th>Actions</th>
-                
             </tr>
+
             {% for exam in exams %}
                 <tr>
                     <td>{{ exam.description }}</td>
+
                     {% if current_user.role == 'aluno' %}
-                    <td>{{exam.prof_id}}</td>
+                        <td>{{ exam.prof_id }}</td>
                     {% endif %}
+
                     <td>
-                    {% if current_user.role == 'aluno' %}
-                        <form action="{{ url_for('exam.apply',exam_id = exam.id) }}">
+                        {% if current_user.role == 'aluno' %}
+                            <form action="{{ url_for('exam.apply',exam_id = exam.id) }}">
                             <button type='submit'>Apply</button>
-                    {% else %}
-                    <form action="{{ url_for('exam.delete',id = exam.id) }}">
-                            <button type='submit'>Delete</button>
-                    {% endif %}
+                        {% else %}
+                            <form action="{{ url_for('exam.delete',id = exam.id) }}">
+                                <button type='submit'>Delete</button>
+                            </form>
+                            <form action="{{ url_for('exam.show_report',id = exam.id) }}">
+                            <button type='submit'>Report</button>
+                        {% endif %}
                         </form>
                     </td>
                 </tr>
             {% endfor %}
         </table>
-
     </div>
-    </body>
-    </html>
 {% endblock %}

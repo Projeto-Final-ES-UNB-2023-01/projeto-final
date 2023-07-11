@@ -1,34 +1,9 @@
 {% extends "base.jinja2" %}
 
 {% block content %}
-    <html lang="pt-br">
-    <style>
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
-
-        th, td {
-            text-align: left;
-            padding: 8px;
-        }
-
-        th {
-            background-color: #acabab;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-    </style>
-    <body>
-
     <h1 class='title'> Questões cadastradas </h1>
-
-
     <div class='box'>
         <b>Questões Cadastradas</b>
-
         <form method="post">
             <table class='table is-striped'>
                 <tr>
@@ -52,10 +27,7 @@
                     </tr>
                 {% endfor %}
             </table>
-
             <button class="button is-info is-medium is-responsive">Add</button>
         </form>
     </div>
-    </body>
-    </html>
 {% endblock %}

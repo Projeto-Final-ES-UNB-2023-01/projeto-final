@@ -6,6 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Test's application</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css"/>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #acabab;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
 </head>
 <body>
 <section class="hero is-primary is-fullheight">
@@ -39,12 +58,12 @@
                                     Exams
                                 </a>
                             {% endif %}
-                            
-                                {% if current_user.role == 'aluno' %}
-                                 <a href="{{ url_for('exam.show') }}" class="navbar-item">
+
+                            {% if current_user.role == 'aluno' %}
+                                <a href="{{ url_for('exam.show') }}" class="navbar-item">
                                     Exams
                                 </a>
-                                {% endif %}
+                            {% endif %}
 
 
                             <a href="{{ url_for('auth.logout') }}" class="navbar-item">

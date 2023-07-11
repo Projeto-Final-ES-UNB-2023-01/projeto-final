@@ -1,0 +1,21 @@
+{% extends "base.jinja2" %}
+
+{% block content %}
+    <h1 class='title'> Relatório: {{ exam.description }} </h1>
+    <div class='box'>
+        <b>Relatório do exame</b>
+        <table class='table is-striped'>
+            <tr>
+                <th>Student</th>
+                <th>Grade</th>
+            </tr>
+
+            {% for student in report %}
+                <tr>
+                    <td>{{ student }}</td>
+                    <td>{{ report[student] }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}
