@@ -76,7 +76,13 @@ def add_questions(id):
 @exam.route('apply/<exam_id>', methods=['GET'])
 @login_required
 def apply(exam_id):
+    attempts = Attempt.query.filter_by(exam_id=exam_id).all()
+    for attempt in attempts:
+        if attempt.student_id == current_user.id:
+            return render_template('exams/already_answered.jinja2')
+
     exam_questions = Exam.query.filter_by(id=exam_id).first().questions
+
     return render_template('exams/apply.jinja2', questions=exam_questions)
 
 
@@ -108,18 +114,23 @@ def get_answers(exam_id):
 
 @exam.route('/<id>/report')
 @login_required
-def show_report(id):
+def show_reports(id):
     exam = Exam.query.filter_by(id=id).first()
     attempts = Attempt.query.filter_by(exam_id=id).all()
 
-    report = {}
+    reports = {}
 
     for attempt in attempts:
-        student_id = attempt.student_id
-        student = User.query.filter_by(id=student_id).first()
-        student_name = student.name
-        grade = attempt.grade
+        student = User.query.filter_by(id=attempt.student_id).first()
+        reports[student.name] = attempt
 
-        report[student_name] = grade
+    return render_template('exams/show_reports.jinja2', reports=reports, exam=exam)
 
-    return render_template('exams/report.jinja2', report=report, exam=exam)
+
+@exam.route('/<exam_id>/report/<attempt_id>')
+def report(exam_id, attempt_id):
+    exam = Exam.query.filter_by(id=exam_id).first()
+    attempt = Attempt.query.filter_by(id=attempt_id).first()
+    student = User.query.filter_by(id=attempt.student_id).first()
+
+    return render_template('exams/report.jinja2', student=student, exam=exam, attempt=attempt)

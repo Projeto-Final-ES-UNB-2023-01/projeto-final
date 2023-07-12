@@ -38,7 +38,7 @@
                             <form action="{{ url_for('exam.delete',id = exam.id) }}">
                                 <button type='submit'>Delete</button>
                             </form>
-                            <form action="{{ url_for('exam.show_report',id = exam.id) }}">
+                            <form action="{{ url_for('exam.show_reports',id = exam.id) }}">
                             <button type='submit'>Report</button>
                         {% endif %}
                         </form>

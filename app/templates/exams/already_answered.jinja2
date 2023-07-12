@@ -1,0 +1,9 @@
+{% extends 'base.jinja2' %}
+
+{% block content %}
+    <h1 class="title">Você já respondeu este exame.</h1>
+
+    <form action="{{ url_for('exam.show') }}">
+        <button type="submit">Voltar</button>
+    </form>
+{% endblock %}

@@ -3,17 +3,17 @@
 {% block content %}
     <h1 class='title'> Relatório: {{ exam.description }} </h1>
     <div class='box'>
-        <b>Relatório do exame</b>
+        <b>{{ student.name }}</b>
         <table class='table is-striped'>
             <tr>
-                <th>Student</th>
-                <th>Grade</th>
+                <th>Question</th>
+                <th>Answer</th>
             </tr>
 
-            {% for student in report %}
+            {% for question in attempt.answers %}
                 <tr>
-                    <td>{{ student }}</td>
-                    <td>{{ report[student] }}</td>
+                    <td>{{ question.upper() }}</td>
+                    <td>{{ attempt.answers[question] }}</td>
                 </tr>
             {% endfor %}
         </table>
