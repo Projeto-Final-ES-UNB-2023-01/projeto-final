@@ -1,8 +1,16 @@
 {% extends 'base.jinja2' %}
 
 {% block content %}
+
     <h3 class="title">Create new exam</h3>
     <div class="box">
+    {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div class="notification is-danger">
+                        {{ messages[0] }}
+                    </div>
+                {% endif %}
+            {% endwith %}
         <form method="post">
             <div class="field">
                 <div class="control">
@@ -12,6 +20,19 @@
                            autofocus="" required>
                 </div>
             </div>
+            <br>
+            <div class = "control">
+            Opening Date
+            <input class = 'input' type = 'datetime-local' name = 'openingDate'>
+            </div> <br>
+
+            <div class = "control">
+            Closing Date
+            <input class = 'input' type = 'datetime-local' name = 'closingDate'>
+            </div> <br>
+
+        
+
             <button class="button is-info is-medium is-responsive">Add</button>
         </form>
     </div>

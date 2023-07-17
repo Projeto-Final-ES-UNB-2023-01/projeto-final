@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, redirect, url_for, request, flash
 from flask_login import login_required, current_user
 from ..models import User, Question, Exam, Attempt
 from ..webapp import db
+from datetime import datetime
 
 exam = Blueprint('exam', __name__)
 
@@ -22,7 +23,20 @@ def show():
 def new():
     if request.method == 'POST':
         description = request.form.get('description')
-        new_exam = Exam(description=description, prof_id=current_user.id)
+        openingDate = request.form.get('openingDate')
+        closingDate = request.form.get('closingDate')
+    
+        date_format = '%Y-%m-%dT%H:%M'
+        openingConvertedDate = datetime.strptime(openingDate, date_format)
+        closingConvertedDate = datetime.strptime(closingDate, date_format)
+        if (openingConvertedDate >= closingConvertedDate ):
+            flash("Invalid Date. Please try again.")
+            return redirect(url_for('exam.new'))
+
+        new_exam = Exam(description=description, 
+                        prof_id=current_user.id,
+                        openingDate = openingConvertedDate,
+                        closingDate = closingConvertedDate)
 
         db.session.add(new_exam)
         db.session.commit()
@@ -80,6 +94,7 @@ def apply(exam_id):
     for attempt in attempts:
         if attempt.student_id == current_user.id:
             return render_template('exams/already_answered.jinja2')
+    
 
     exam_questions = Exam.query.filter_by(id=exam_id).first().questions
 
@@ -100,6 +115,7 @@ def get_answers(exam_id):
             grade += exam_questions[question]['value']
 
         answers[question] = answer
+        print(f"Resposta correta: {exam_questions[question]['answer']}\nResposta do aluno: {answer}")
 
     new_attempt = Attempt(student_id=current_user.id,
                           answers=answers,

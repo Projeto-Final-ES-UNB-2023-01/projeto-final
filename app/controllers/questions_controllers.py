@@ -26,9 +26,7 @@ def new():
         db.session.commit()
 
         return redirect(url_for('question.new_type', id=new_question.id))
-    """
-    PAREI NA PARTE DE DEFINIR A FUNÇÃO NEW_NOVO TIPO E TENTAR FAZER DE UMA FORMA DINÂMICA
-    """
+
 
 
 @question.route('/new/<id>', methods=['POST', 'GET'])
@@ -66,7 +64,7 @@ def new_type(id):
         db.session.add(question)
         db.session.commit()
 
-        return redirect(url_for('main.profile'))
+        return redirect(url_for('question.show_questions'))
 
 
 @question.route('/', methods=['GET'])
