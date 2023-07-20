@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, redirect, url_for, request, flash
 from flask_login import login_required, current_user
 from ..models import User, Question, Exam, Attempt
 from ..webapp import db
-from datetime import datetime
+from datetime import datetime, time
 
 exam = Blueprint('exam', __name__)
 
@@ -90,20 +90,26 @@ def add_questions(id):
 @exam.route('apply/<exam_id>', methods=['GET'])
 @login_required
 def apply(exam_id):
-    attempts = Attempt.query.filter_by(exam_id=exam_id).all()
+   
+    attempts = Attempt.query.filter_by(exam_id=exam_id).all()   
     for attempt in attempts:
         if attempt.student_id == current_user.id:
             return render_template('exams/already_answered.jinja2')
+        
     
-
-    exam_questions = Exam.query.filter_by(id=exam_id).first().questions
-
-    return render_template('exams/apply.jinja2', questions=exam_questions)
+    exam = Exam.query.filter_by(id=exam_id).first()
+    if ( exam.openingDate <= datetime.now()<=exam.closingDate):
+        exam_questions = exam.questions
+        return render_template('exams/apply.jinja2', questions=exam_questions)
+    
+    flash('Exam not avaliable now.')
+    return redirect(url_for('exam.show'))
 
 
 @exam.route('apply/<exam_id>', methods=['POST'])
 @login_required
 def get_answers(exam_id):
+    
     answers = {}
     grade = 0
     exam_questions = Exam.query.filter_by(id=exam_id).first().questions

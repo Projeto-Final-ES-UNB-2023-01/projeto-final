@@ -10,6 +10,13 @@
     {% endif %}
 
     <div class='box'>
+    {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div class="notification is-danger">
+                        {{ messages[0] }}
+                    </div>
+                {% endif %}
+            {% endwith %}
         <b>Exames cadastrados</b>
         <table class='table is-striped'>
             <tr>
