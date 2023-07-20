@@ -1,0 +1,43 @@
+{% extends "base.jinja2" %}
+
+{% block content %}
+    <h1 class='title'> Exames cadastrados </h1>
+
+
+    <div class='box'>
+    {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div class="notification is-danger">
+                        {{ messages[0] }}
+                    </div>
+                {% endif %}
+            {% endwith %}
+        <b>Student attempt report</b>
+        <table class='table is-striped'>
+            <tr>
+                <th>Question</th>
+                <th>Student Answer</th>
+                <th>Correct Answer</th>
+                
+            </tr>
+
+            {% for question in exam_answers %}
+                <tr>
+                    <td>{{ question }}</td>
+
+                    <td>{{ student_attempt_answers[question] }}</td>
+
+                    <td>{{ exam_answers[question]['answer'] }}</td>
+                        
+                        
+                       
+    <!-- Adicionar dados dos alunos e descrição das questões, além de encaminhar dos reports para cá-->
+                            
+                        
+            
+                    
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

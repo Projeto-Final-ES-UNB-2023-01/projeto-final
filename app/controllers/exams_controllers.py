@@ -106,6 +106,8 @@ def apply(exam_id):
     return redirect(url_for('exam.show'))
 
 
+
+
 @exam.route('apply/<exam_id>', methods=['POST'])
 @login_required
 def get_answers(exam_id):
@@ -147,6 +149,16 @@ def show_reports(id):
         reports[student.name] = attempt
 
     return render_template('exams/show_reports.jinja2', reports=reports, exam=exam)
+
+@exam.route('/<exam_id>/report/<student_id>')
+@login_required
+def student_report(exam_id, student_id):
+    student_attempt_answers = Attempt.query.filter_by(exam_id = exam_id, student_id = student_id).first().answers
+    exam_answers = Exam.query.filter_by(id = exam_id).first().questions
+
+    print(student_attempt_answers)
+    print(exam_answers)
+    return render_template('exams/student_report.jinja2', student_attempt_answers = student_attempt_answers, exam_answers = exam_answers)
 
 
 @exam.route('/<exam_id>/report/<attempt_id>')

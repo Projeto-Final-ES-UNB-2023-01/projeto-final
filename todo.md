@@ -3,9 +3,7 @@ respostas dos estudantes a um exame.
 - RE.02 - Visualizar a nota de um exame executado após este ser encerrado
 -RE.03 - Para um exame realizado e já encerrado, visualizar as questões acertada e
 erradas.
-- RE.05 - O Estudante deve ser capaz de realizar o exame se e somente se a data
-presente (no relógio do servidor) estiver entre o momento de abertura e o momento de
-encerramento.
+
 - RE.06 - Um exame em realização deve ser automaticamente concluído no momento de
 encerramento. Não permitindo a edição da resposta pelos estudantes.
 - RD.01 - Para facilitar os testes, o sistema deve ser possível executar o sistema com
