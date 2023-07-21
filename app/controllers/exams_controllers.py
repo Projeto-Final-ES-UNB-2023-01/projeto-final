@@ -25,18 +25,19 @@ def new():
         description = request.form.get('description')
         openingDate = request.form.get('openingDate')
         closingDate = request.form.get('closingDate')
-    
+
         date_format = '%Y-%m-%dT%H:%M'
         openingConvertedDate = datetime.strptime(openingDate, date_format)
         closingConvertedDate = datetime.strptime(closingDate, date_format)
-        if (openingConvertedDate >= closingConvertedDate ):
+
+        if openingConvertedDate >= closingConvertedDate:
             flash("Invalid Date. Please try again.")
             return redirect(url_for('exam.new'))
 
-        new_exam = Exam(description=description, 
+        new_exam = Exam(description=description,
                         prof_id=current_user.id,
-                        openingDate = openingConvertedDate,
-                        closingDate = closingConvertedDate)
+                        openingDate=openingConvertedDate,
+                        closingDate=closingConvertedDate)
 
         db.session.add(new_exam)
         db.session.commit()
@@ -90,28 +91,24 @@ def add_questions(id):
 @exam.route('apply/<exam_id>', methods=['GET'])
 @login_required
 def apply(exam_id):
-   
-    attempts = Attempt.query.filter_by(exam_id=exam_id).all()   
+    attempts = Attempt.query.filter_by(exam_id=exam_id).all()
     for attempt in attempts:
         if attempt.student_id == current_user.id:
             return render_template('exams/already_answered.jinja2')
-        
-    
+
     exam = Exam.query.filter_by(id=exam_id).first()
-    if ( exam.openingDate <= datetime.now()<=exam.closingDate):
+
+    if exam.openingDate <= datetime.now() <= exam.closingDate:
         exam_questions = exam.questions
         return render_template('exams/apply.jinja2', questions=exam_questions)
-    
+
     flash('Exam not avaliable now.')
     return redirect(url_for('exam.show'))
-
-
 
 
 @exam.route('apply/<exam_id>', methods=['POST'])
 @login_required
 def get_answers(exam_id):
-    
     answers = {}
     grade = 0
     exam_questions = Exam.query.filter_by(id=exam_id).first().questions
@@ -150,18 +147,21 @@ def show_reports(id):
 
     return render_template('exams/show_reports.jinja2', reports=reports, exam=exam)
 
-@exam.route('/<exam_id>/report/<student_id>')
+
+@exam.route('/<exam_id>/student/<student_id>/report')
 @login_required
 def student_report(exam_id, student_id):
-    student_attempt_answers = Attempt.query.filter_by(exam_id = exam_id, student_id = student_id).first().answers
-    exam_answers = Exam.query.filter_by(id = exam_id).first().questions
+    student_attempt_answers = Attempt.query.filter_by(exam_id=exam_id, student_id=student_id).first().answers
+    exam_answers = Exam.query.filter_by(id=exam_id).first().questions
 
     print(student_attempt_answers)
     print(exam_answers)
-    return render_template('exams/student_report.jinja2', student_attempt_answers = student_attempt_answers, exam_answers = exam_answers)
+    return render_template('exams/student_report.jinja2', student_attempt_answers=student_attempt_answers,
+                           exam_answers=exam_answers)
 
 
 @exam.route('/<exam_id>/report/<attempt_id>')
+@login_required
 def report(exam_id, attempt_id):
     exam = Exam.query.filter_by(id=exam_id).first()
     attempt = Attempt.query.filter_by(id=attempt_id).first()

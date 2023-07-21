@@ -17,6 +17,3 @@ class Exam(db.Model):
     openingDate: Mapped[DateTime] = mapped_column(DateTime)
     closingDate: Mapped[DateTime] = mapped_column(DateTime)
     professor: Mapped["User"] = relationship(back_populates='exams')
-
-    
-

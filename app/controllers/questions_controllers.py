@@ -28,7 +28,6 @@ def new():
         return redirect(url_for('question.new_type', id=new_question.id))
 
 
-
 @question.route('/new/<id>', methods=['POST', 'GET'])
 @login_required
 def new_type(id):
