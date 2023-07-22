@@ -114,6 +114,11 @@ def apply(exam_id):
 @exam.route('apply/<exam_id>', methods=['POST'])
 @login_required
 def get_answers(exam_id):
+    exam = Exam.query.filter_by(id=exam_id).first()
+    exam_questions = exam.questions
+    if not (exam.openingDate <= datetime.now() <= exam.closingDate):
+        flash("Timeout")
+        return redirect(url_for('exam.show'))
     answers = {}
     grade = 0
     exam_questions = Exam.query.filter_by(id=exam_id).first().questions
