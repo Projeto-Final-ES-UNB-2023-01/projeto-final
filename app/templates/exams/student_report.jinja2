@@ -1,7 +1,7 @@
 {% extends "base.jinja2" %}
 
 {% block content %}
-    <h1 class='title'> Exames cadastrados </h1>
+    <h1 class='title'> {{exam_answered.description}} - Grade: {{student_attempt.grade}} </h1>
 
 
     <div class='box'>
@@ -12,7 +12,7 @@
                     </div>
                 {% endif %}
             {% endwith %}
-        <b>Student attempt report</b>
+        <b>{{student_name}} attempt report</b>
         <table class='table is-striped'>
             <tr>
                 <th>Question</th>
@@ -21,13 +21,13 @@
                 
             </tr>
 
-            {% for question in exam_answers %}
+            {% for question in exam_answered.questions %}
                 <tr>
                     <td>{{ question }}</td>
 
-                    <td>{{ student_attempt_answers[question] }}</td>
+                    <td>{{ student_attempt.answers[question] }}</td>
 
-                    <td>{{ exam_answers[question]['answer'] }}</td>
+                    <td>{{ exam_answered.questions[question]['answer'] }}</td>
                         
                         
                        

@@ -31,7 +31,7 @@
 
             {% for exam in exams %}
                 <tr>
-                    <td>{{ exam.description }}</td>
+                    <td>{{ exam.description }} </td>
 
                     {% if current_user.role == 'aluno' %}
                         <td>{{ exam.prof_id }}</td>
@@ -39,8 +39,13 @@
 
                     <td>
                         {% if current_user.role == 'aluno' %}
-                            <form action="{{ url_for('exam.apply',exam_id = exam.id) }}">
-                            <button type='submit'>Apply</button>
+                            {%  if exam.id in done_exams %}
+                                <form action="{{ url_for('exam.student_report',exam_id = exam.id,student_id = current_user.id) }}">
+                                <button type='submit'>Report</button>
+                            {% else %}
+                                <form action="{{ url_for('exam.apply',exam_id = exam.id) }}">
+                                <button type='submit'>Apply</button>
+                            {% endif %}
                         {% else %}
                             <form action="{{ url_for('exam.delete',id = exam.id) }}">
                                 <button type='submit'>Delete</button>

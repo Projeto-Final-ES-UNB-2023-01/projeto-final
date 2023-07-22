@@ -4,7 +4,7 @@
     <h1 class='title'> Relatório: {{ exam.description }} </h1>
     <div class='box'>
         <b>Relatório do exame</b>
-        <table class='table is-striped'>
+        <table class='table is-bordered'>
             <tr>
                 <th>Student</th>
                 <th>Grade</th>
@@ -13,11 +13,11 @@
 
             {% for student in reports %}
                 <tr>
-                    <td>{{ student }}</td>
+                    <td> {{ student }}  </td>
                     <td>{{ reports[student].grade }}</td>
                     <td>
-                        <form action="{{ url_for('exam.report', exam_id=exam.id, attempt_id=reports[student].id) }}">
-                            <button type="submit">Show</button>
+                        <form action="{{ url_for('exam.student_report',exam_id = exam.id, student_id = reports[student].student_id)}}">
+                            <button type="submit">Questions</button>
                         </form>
                     </td>
                 </tr>

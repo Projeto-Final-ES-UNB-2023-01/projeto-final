@@ -1,8 +1,7 @@
 - RP.07 - A qualquer momento deve possibilitar a visualização de um relatório com as
-respostas dos estudantes a um exame.
-- RE.02 - Visualizar a nota de um exame executado após este ser encerrado
+respostas dos estudantes a um exame. Partial DONE
 -RE.03 - Para um exame realizado e já encerrado, visualizar as questões acertada e
-erradas.
+erradas. PARTIAL DONE
 
 - RE.06 - Um exame em realização deve ser automaticamente concluído no momento de
 encerramento. Não permitindo a edição da resposta pelos estudantes.
