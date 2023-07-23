@@ -16,4 +16,5 @@ class Exam(db.Model):
     prof_id: Mapped[int] = mapped_column(ForeignKey('users.id'))
     openingDate: Mapped[DateTime] = mapped_column(DateTime)
     closingDate: Mapped[DateTime] = mapped_column(DateTime)
+
     professor: Mapped["User"] = relationship(back_populates='exams')

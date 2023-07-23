@@ -56,9 +56,7 @@ def new_type(id):
                 option = request.form.get(opt)
                 options[opt] = option
 
-            print(options)
             question.options = options
-            print(question.options)
 
         db.session.add(question)
         db.session.commit()

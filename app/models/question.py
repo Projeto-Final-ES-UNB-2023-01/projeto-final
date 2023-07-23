@@ -21,11 +21,12 @@ class Question(db.Model):
     professor: Mapped["User"] = relationship(back_populates='questions')
 
     def toJson(self):
-        return {"id": self.id,
-                "description": self.description,
-                "type": self.type,
-                "command": self.command,
-                "options": self.options,
-                "answer": self.answer,
-                "value": self.value
-                }
+        return {
+            "id": self.id,
+            "description": self.description,
+            "type": self.type,
+            "command": self.command,
+            "options": self.options,
+            "answer": self.answer,
+            "value": self.value
+        }

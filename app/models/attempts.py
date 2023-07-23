@@ -9,6 +9,7 @@ from sqlalchemy_json import MutableJson
 
 class Attempt(db.Model):
     __tablename__ = 'attempts'
+
     id: Mapped[int] = mapped_column(primary_key=True)
     student_id: Mapped[int] = mapped_column(ForeignKey('users.id'))
     answers: Mapped[MutableJson] = mapped_column(MutableJson, nullable=True)
