@@ -4,21 +4,17 @@
 # Start poetry virtual env
 `poetry shell`
 # Export flask path env
+## Linux
 `export FLASK_APP=app/webapp.py`
-# Debug mode
+
 `export FLASK_DEBUG=1`
+## Windows
+ `set FLASK_APP=app/webapp.py`
+
+`set FLASK_DEBUG=1`
 # Create db
 
-`flask shell`
+- db is already created, just pull from repository
 
-`from app.webapp import app,db`
-
-`from app.models import User,Question,Exam,Attempt`
-
-`app.app_context().push()`
-
-`db.create_all()`
-
-`exit()`
 # Run app
 `flask run`
