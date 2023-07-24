@@ -159,6 +159,10 @@ def show_reports(id):
 @exam.route('/<exam_id>/student/<student_id>/report')
 @login_required
 def student_report(exam_id, student_id):
+    exam_answered = Exam.query.filter_by(id=exam_id).first()
+    student_attempt = Attempt.query.filter_by(exam_id=exam_id, student_id=student_id).first()
+    if datetime.now() < exam_answered.closingDate and current_user.role == 'aluno':
+        return redirect(url_for('exam.report',exam_id = exam_id, attempt_id = student_attempt.id))
     student_name = User.query.filter_by(id=student_id).first().name
     student_attempt = Attempt.query.filter_by(exam_id=exam_id, student_id=student_id).first()
     exam_answered = Exam.query.filter_by(id=exam_id).first()

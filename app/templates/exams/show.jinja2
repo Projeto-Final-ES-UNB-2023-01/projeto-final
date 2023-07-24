@@ -3,11 +3,6 @@
 {% block content %}
     <h1 class='title'> Exames cadastrados </h1>
 
-    {% if current_user.role == 'professor' %}
-        <a href="{{ url_for('exam.new') }}" class="btn btn-success">
-            <button class="button is-primary ">Add New</button>
-        </a>
-    {% endif %}
 
     <div class='box'>
     {% with messages = get_flashed_messages() %}
@@ -47,16 +42,23 @@
                                 <button type='submit'>Apply</button>
                             {% endif %}
                         {% else %}
-                            <form action="{{ url_for('exam.delete',id = exam.id) }}">
-                                <button type='submit'>Delete</button>
+                        <form action="{{ url_for('exam.show_reports',id = exam.id) }}">
+                            <button class = 'button is-primary is-small' type='submit'>Reports</button>
                             </form>
-                            <form action="{{ url_for('exam.show_reports',id = exam.id) }}">
-                            <button type='submit'>Report</button>
+                            <form action="{{ url_for('exam.delete',id = exam.id) }}">
+                                <button class = 'button is-danger is-small' type='submit'>Delete</button>
+                            </form>
+                            
                         {% endif %}
-                        </form>
+                        
                     </td>
                 </tr>
             {% endfor %}
         </table>
+        {% if current_user.role == 'professor' %}
+        <a href="{{ url_for('exam.new') }}" class="btn btn-success">
+            <button class="button is-primary ">Add New</button>
+        </a>
+    {% endif %}
     </div>
 {% endblock %}
