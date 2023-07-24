@@ -17,8 +17,6 @@ def show():
     exams = Exam.query.all()
     done_exams = [student_attempts.exam_id for student_attempts in
                   Attempt.query.filter_by(student_id=current_user.id).all()]
-    print(done_exams)
-    print(exams)
     return render_template('exams/show.jinja2', exams=exams, current_user=current_user, done_exams=done_exams)
 
 

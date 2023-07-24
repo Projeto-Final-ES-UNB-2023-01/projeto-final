@@ -20,6 +20,8 @@
                 {% if current_user.role == 'aluno' %}
                     <th>Professor</th>
                 {% endif %}
+                <th>Opening Date</th>
+                <th>Closing Date</th>
 
                 <th>Actions</th>
             </tr>
@@ -31,6 +33,9 @@
                     {% if current_user.role == 'aluno' %}
                         <td>{{ exam.prof_id }}</td>
                     {% endif %}
+
+                    <td>{{exam.openingDate}}</td>
+                    <td>{{exam.closingDate}}</td>
 
                     <td>
                         {% if current_user.role == 'aluno' %}
